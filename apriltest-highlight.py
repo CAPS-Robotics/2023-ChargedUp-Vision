@@ -3,6 +3,19 @@ import cv2
 import numpy as np
 from apriltag import Detector, DetectorOptions
 
+# some helpful functions
+def get_distance():
+    """Inputs: (tag) detection size, Outputs: Distance (meters)"""
+    # Get the center point of the detection
+    center = (detection.center[0], detection.center[1])
+
+    # Calculate the distance to the tag using the size of the tag in the image
+    fx = intrinsic_matrix[0, 0]
+    tag_size = 0.152  # size of AprilTag in meters
+    focal_length = fx
+    distance = tag_size * focal_length / detection.size
+
+
 # Initialize the AprilTag detector with correct family for FRC tags
 options = DetectorOptions(families="tag16h5")
 detector = Detector(options)
@@ -44,9 +57,14 @@ while True:
 
         # draw the tag family on the image
         tagFamily = detection.tag_family.decode("utf-8")
-        cv2.putText(frame, tagFamily, (ptA[0], ptA[1] - 15),
-            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-        print("[INFO] tag family: {}".format(tagFamily))
+        cv2.putText(frame, tagFamily, (ptA[0], ptA[1] - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+        #print("[INFO] tag family: {}".format(tagFamily))
+        print("Hello2")
+        #distance test print
+#        get_distance()
+#        print(distance)
+
+        
 
     # show the output image after AprilTag detection
     cv2.imshow("frame", frame)
