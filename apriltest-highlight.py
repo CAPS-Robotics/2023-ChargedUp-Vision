@@ -10,6 +10,7 @@ def get_distance():
     center = (detection.center[0], detection.center[1])
 
     # Calculate the distance to the tag using the size of the tag in the image
+   
     fx = intrinsic_matrix[0, 0]
     tag_size = 0.152  # size of AprilTag in meters
     focal_length = fx
@@ -21,6 +22,7 @@ options = DetectorOptions(families="tag16h5")
 detector = Detector(options)
 
 # Initialize the camera
+ 
 camera = cv2.VideoCapture(0)
 
 while True:
@@ -58,11 +60,10 @@ while True:
         # draw the tag family on the image
         tagFamily = detection.tag_family.decode("utf-8")
         cv2.putText(frame, tagFamily, (ptA[0], ptA[1] - 15), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-        #print("[INFO] tag family: {}".format(tagFamily))
-        print("Hello2")
+        print("[INFO] tag family: {}".format(tagFamily))
         #distance test print
-#        get_distance()
-#        print(distance)
+        get_distance()
+        print(distance)
 
         
 
